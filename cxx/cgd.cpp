@@ -1,9 +1,12 @@
 #include "girlboss.hpp"
-#include <fmt/core.h>
+
 #include <filesystem>
+#include <iostream>
 
 namespace cgd {
-    const char* version = "1.0.0 (c++)";
+
+constexpr char* VERSION = "CGD 1.1.0 (c++)";
+
 } // namespace cgd
 
 int main(int argc, char* argv[])
@@ -22,7 +25,7 @@ int main(int argc, char* argv[])
 
     if (*showVersion)
     {
-        fmt::print("{}: {}\n", "cgd", cgd::version);
+        std::cout << cgd::VERSION << '\n';
         return 0;
     }
 
@@ -34,11 +37,11 @@ int main(int argc, char* argv[])
 
     try {
         std::filesystem::create_directory(*sortingName);
-        fmt::print("Created: {}\n", *sortingName);
+        std::cout << "Created: " << *sortingName << '\n';
         std::filesystem::current_path(*sortingName);
         std::filesystem::create_directory(*releaseName);
         std::filesystem::current_path(*releaseName);
-        fmt::print("\tCreated: {}\n", *releaseName);
+        std::cout << "\tCreated: " << *releaseName << '\n';
 
         const char* items[5] = {
             "dlc",
@@ -51,13 +54,13 @@ int main(int argc, char* argv[])
         for (int i = 0; i < 5; ++i)
         {
             std::filesystem::create_directory(items[i]);
-            fmt::print("\t\tCreated: {}\n", items[i]);
+            std::cout << "\t\tCreated: " << items[i] << '\n';
         }
     }
 
     catch (const std::exception& error)
     {
-        fmt::print("{}", error.what());
+        std::cout << error.what() << '\n';
         return -1;
     }
 
